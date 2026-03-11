@@ -52,6 +52,10 @@ app.use((req, res, next) => {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
 
+      if (path === "/api/contact") {
+        logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms :: [Contact Message Omitted for Privacy]`;
+      }
+
       log(logLine);
     }
   });
