@@ -22,10 +22,7 @@ export default function Home() {
               Need a modern website, dealing with frustrating tech issues, or just have a tech-related question? We provide clean, reliable solutions tailored for you.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-              <Link href="/contact" className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 h-12 px-8 hover:-translate-y-0.5">
-                Get a Free Consultation
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+
               <Link href="/services" className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-12 px-8">
                 View Our Services
               </Link>
@@ -103,7 +100,7 @@ export default function Home() {
             
             <div className="mt-12 flex flex-col sm:flex-row justify-center gap-6 text-sm font-medium text-primary-foreground/90">
               <div className="flex items-center justify-center gap-2">
-                <CheckCircle2 className="h-5 w-5" /> Free initial consultation
+                <CheckCircle2 className="h-5 w-5" /> Free initial assistance
               </div>
               <div className="flex items-center justify-center gap-2">
                 <CheckCircle2 className="h-5 w-5" /> Plain English, no jargon
