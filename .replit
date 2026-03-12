@@ -37,3 +37,8 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[userenv]
+
+[userenv.shared]
+RENDER_DATABASE_URL = "postgresql://ohhdenny_services_website_postgresql_user:xBk0hU4Lk91KFmuV7BjcsnwHAMwPhkzg@dpg-d6p22d450q8c73c4jahg-a.oregon-postgres.render.com/ohhdenny_services_website_postgresql"

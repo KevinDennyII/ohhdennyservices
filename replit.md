@@ -72,11 +72,11 @@ This is the key architectural decision for type safety across the full stack:
 
 ### Database
 
-- **Database:** PostgreSQL
+- **Database:** PostgreSQL hosted on Render (external)
 - **ORM:** Drizzle ORM (`drizzle-orm/node-postgres`) with `pg` Pool
 - **Schema:** Single table — `contact_messages` (id, name, email, phone, message, createdAt)
 - **Migrations:** Managed via `drizzle-kit` with `db:push` command
-- **Config:** `DATABASE_URL` environment variable required
+- **Config:** `RENDER_DATABASE_URL` env var (preferred) or `DATABASE_URL` as fallback; SSL auto-enabled for Render connections
 
 ### Build & Deployment
 
@@ -101,4 +101,5 @@ This is the key architectural decision for type safety across the full stack:
 
 ### Environment Variables Required
 
-- `DATABASE_URL` — PostgreSQL connection string (required for both dev and production)
+- `RENDER_DATABASE_URL` — External Render PostgreSQL connection string (primary)
+- `DATABASE_URL` — Fallback PostgreSQL connection string (auto-provided by Replit if provisioned)
