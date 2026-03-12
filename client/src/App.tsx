@@ -8,6 +8,7 @@ import NotFound from "@/pages/not-found";
 // Components
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { JsonLd } from "@/components/JsonLd";
 
 // Pages
 import Home from "@/pages/Home";
@@ -40,6 +41,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
+        <JsonLd />
         <Router />
       </TooltipProvider>
     </QueryClientProvider>

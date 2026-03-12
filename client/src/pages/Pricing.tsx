@@ -1,4 +1,5 @@
 import { PageTransition } from "@/components/layout/PageTransition";
+import { useSEO } from "@/hooks/use-seo";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
@@ -8,6 +9,12 @@ import networkIcon from "@assets/network_1773274389678.png";
 import diagnosticIcon from "@assets/diagnostic_1773274389676.png";
 
 export default function Pricing() {
+  useSEO({
+    title: "Pricing",
+    description: "Transparent delivery credit pricing for web development, IT consulting, networking, and tech support. No hourly billing — pay for completed work.",
+    path: "/pricing",
+  });
+
   return (
     <PageTransition>
       <div className="pt-32 pb-20 bg-slate-50 border-b">

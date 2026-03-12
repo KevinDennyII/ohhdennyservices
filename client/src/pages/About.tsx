@@ -1,4 +1,5 @@
 import { PageTransition } from "@/components/layout/PageTransition";
+import { useSEO } from "@/hooks/use-seo";
 import aboutHeroImg from "@assets/JPEG-scaled_1773274389677.jpg";
 import networkTopology from "@assets/ins_networktopology_proposed3Official-2-e1726727591572_1773274389676.jpg";
 import securityPlusLogo from "@assets/SecurityPlus-Logo-Certified-5-e1543775013910_1773274389676.jpg";
@@ -6,6 +7,12 @@ import awsDeveloper from "@assets/AWSCertifiedDeveloper-e1550367513205_177327438
 import awsCertified from "@assets/AWS_Certified_Logo_294x230_Color_1773274389677.jpg";
 
 export default function About() {
+  useSEO({
+    title: "About",
+    description: "Learn about OhhDenny Services, LLC — founded in 2010 by Kevin Denny II with over 20 years of IT experience. Serving small businesses and nonprofits.",
+    path: "/about",
+  });
+
   return (
     <PageTransition>
       <div className="pt-32 pb-20 bg-slate-50 border-b">

@@ -54,12 +54,14 @@ Preferred communication style: Simple, everyday language.
 - **Forms:** `react-hook-form` + `@hookform/resolvers` + Zod for form validation
 - **Styling:** Tailwind CSS with custom CSS variables for the corporate blue/white theme; Google Fonts (Inter, Plus Jakarta Sans)
 - **Icons:** `lucide-react` + `react-icons` (for social media icons like X/LinkedIn)
+- **SEO:** Per-page `useSEO()` hook (title, description, OG/Twitter tags, canonical URL, GA page_view events); JSON-LD ProfessionalService schema injected into `<head>` via `JsonLd` component; Google Analytics G-JGD15F0GZT loaded in `index.html`
 - **Images:** Original site images imported from `attached_assets/` via `@assets/` path alias — includes company logo, hero illustrations, service icons, certification badges, network topology diagram, and SSL trust seal
 
 ### Backend Architecture
 
 - **Framework:** Express.js (Node.js) with TypeScript, run via `tsx`
-- **Single API endpoint:** `POST /api/contact` — validates input with Zod, stores to DB, returns created record
+- **API endpoints:** `POST /api/contact` (validated with Zod, honeypot spam check, rate limited 5/15min), `GET /robots.txt`, `GET /sitemap.xml`
+- **Security headers:** X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy (applied globally)
 - **Storage layer:** `IStorage` interface with `DatabaseStorage` implementation — makes it easy to swap storage backends (e.g., MemStorage for tests)
 - **Dev server:** Vite runs in middleware mode inside the Express server during development (HMR via WebSocket at `/vite-hmr`)
 - **Production build:** Custom `script/build.ts` runs `vite build` for the client and `esbuild` for the server, bundling an explicit allowlist of server dependencies for faster cold starts

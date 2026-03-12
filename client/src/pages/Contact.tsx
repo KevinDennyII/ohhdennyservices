@@ -1,4 +1,5 @@
 import { PageTransition } from "@/components/layout/PageTransition";
+import { useSEO } from "@/hooks/use-seo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api, type ContactInput } from "@shared/routes";
@@ -19,6 +20,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { SiX, SiLinkedin } from "react-icons/si";
 
 export default function Contact() {
+  useSEO({
+    title: "Contact",
+    description: "Get in touch with OhhDenny Services for web development, IT consulting, networking, or any tech question. Based in Selma, Texas.",
+    path: "/contact",
+  });
+
   const mutation = useSubmitContact();
 
   const form = useForm<ContactInput>({
@@ -32,7 +39,9 @@ export default function Contact() {
   });
 
   function onSubmit(data: ContactInput) {
-    mutation.mutate(data, {
+    const honeypot = (document.querySelector('input[name="website"]') as HTMLInputElement)?.value;
+    const payload = honeypot ? { ...data, website: honeypot } : data;
+    mutation.mutate(payload as ContactInput, {
       onSuccess: () => {
         form.reset();
       },
@@ -148,6 +157,15 @@ export default function Contact() {
                       className="space-y-6"
                       data-testid="form-contact"
                     >
+                      <div style={{ position: "absolute", left: "-9999px", height: 0, overflow: "hidden" }}>
+                        <input
+                          type="text"
+                          name="website"
+                          autoComplete="off"
+                          tabIndex={-1}
+                          aria-hidden="true"
+                        />
+                      </div>
                       <FormField
                         control={form.control}
                         name="name"

@@ -1,4 +1,5 @@
 import { PageTransition } from "@/components/layout/PageTransition";
+import { useSEO } from "@/hooks/use-seo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
 import websiteIcon from "@assets/website_1773274389676.png";
@@ -41,6 +42,12 @@ const servicesList = [
 ];
 
 export default function Services() {
+  useSEO({
+    title: "Services",
+    description: "Web development, networking, computer repair, cyber security, and IT consulting services. CCNA trained, CompTIA Security+ certified.",
+    path: "/services",
+  });
+
   return (
     <PageTransition>
       <div className="pt-32 pb-20 bg-slate-50 border-b">

@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
+import { useSEO } from "@/hooks/use-seo";
 import heroImg from "@assets/PNG-copy_1773274389677.png";
 import websiteIcon from "@assets/website_1773274389676.png";
 import networkIcon from "@assets/network_1773274389678.png";
@@ -9,6 +10,12 @@ import troubleshootingIcon from "@assets/troubleshooting_1773274389677.png";
 import securityPlusLogo from "@assets/SecurityPlus-Logo-Certified-5-e1543775013910_1773274389676.jpg";
 
 export default function Home() {
+  useSEO({
+    title: "Home",
+    description: "IT consulting, web development, networking, and cyber security services for small businesses and nonprofits. Based in Selma, Texas with over 20 years of experience.",
+    path: "/",
+  });
+
   return (
     <PageTransition>
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-slate-50">
