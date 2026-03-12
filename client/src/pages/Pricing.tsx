@@ -1,5 +1,8 @@
 import { PageTransition } from "@/components/layout/PageTransition";
 import { Link } from "wouter";
+import websiteIcon from "@assets/website_1773274389676.png";
+import troubleshootingIcon from "@assets/troubleshooting_1773274389677.png";
+import networkIcon from "@assets/network_1773274389678.png";
 
 export default function Pricing() {
   return (
@@ -21,11 +24,13 @@ export default function Pricing() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
 
-          {/* Web Development */}
           <div className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-8 border-b pb-4">
-              Web Development
-            </h2>
+            <div className="flex items-center gap-3 mb-8 border-b pb-4">
+              <img src={websiteIcon} alt="Web Development" className="h-8 w-8 object-contain" />
+              <h2 className="text-2xl font-bold text-foreground">
+                Web Development
+              </h2>
+            </div>
 
             <div className="space-y-8">
               <div
@@ -111,11 +116,13 @@ export default function Pricing() {
             </div>
           </div>
 
-          {/* Helpful Tech */}
           <div className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-8 border-b pb-4">
-              Helpful Tech
-            </h2>
+            <div className="flex items-center gap-3 mb-8 border-b pb-4">
+              <img src={troubleshootingIcon} alt="Helpful Tech" className="h-8 w-8 object-contain" />
+              <h2 className="text-2xl font-bold text-foreground">
+                Helpful Tech
+              </h2>
+            </div>
 
             <div className="space-y-8">
               <div
@@ -236,11 +243,13 @@ export default function Pricing() {
             </div>
           </div>
 
-          {/* Networking */}
           <div className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-8 border-b pb-4">
-              Networking
-            </h2>
+            <div className="flex items-center gap-3 mb-8 border-b pb-4">
+              <img src={networkIcon} alt="Networking" className="h-8 w-8 object-contain" />
+              <h2 className="text-2xl font-bold text-foreground">
+                Networking
+              </h2>
+            </div>
 
             <div className="space-y-8">
               <div

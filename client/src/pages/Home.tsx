@@ -1,43 +1,52 @@
 import { Link } from "wouter";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Code,
-  Wifi,
-  Monitor,
-  ShieldCheck,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import heroImg from "@assets/PNG-copy_1773274389677.png";
+import websiteIcon from "@assets/website_1773274389676.png";
+import networkIcon from "@assets/network_1773274389678.png";
+import troubleshootingIcon from "@assets/troubleshooting_1773274389677.png";
+import securityPlusLogo from "@assets/SecurityPlus-Logo-Certified-5-e1543775013910_1773274389676.jpg";
 
 export default function Home() {
   return (
     <PageTransition>
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 bg-slate-50">
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-slate-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1
-              className="text-4xl md:text-6xl lg:text-7xl font-extrabold
-                text-foreground tracking-tight mb-8 leading-tight"
-            >
-              Helping People Help Themselves{" "}
-              <span className="text-primary">With Tech...</span>
-            </h1>
-            <p
-              className="text-lg md:text-xl text-muted-foreground
-                mb-10 max-w-2xl mx-auto text-balance"
-            >
-              Need a website or just have a tech-related question? Hit us up!
-            </p>
-            <Link
-              href="/contact"
-              data-testid="link-contact-hero"
-              className="inline-flex h-12 items-center justify-center
-                rounded-md bg-primary text-primary-foreground px-8
-                text-base font-medium shadow transition-colors
-                hover:bg-primary/90"
-            >
-              Contact Us
-            </Link>
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="flex-1 text-center lg:text-left">
+              <h1
+                className="text-4xl md:text-6xl lg:text-7xl font-extrabold
+                  text-foreground tracking-tight mb-8 leading-tight"
+              >
+                Helping People Help Themselves{" "}
+                <span className="text-primary">With Tech...</span>
+              </h1>
+              <p
+                className="text-lg md:text-xl text-muted-foreground
+                  mb-10 max-w-2xl mx-auto lg:mx-0 text-balance"
+              >
+                Need a website or just have a tech-related question? Hit us up!
+              </p>
+              <Link
+                href="/contact"
+                data-testid="link-contact-hero"
+                className="inline-flex h-12 items-center justify-center
+                  rounded-md bg-primary text-primary-foreground px-8
+                  text-base font-medium shadow transition-colors
+                  hover:bg-primary/90"
+              >
+                Contact Us
+              </Link>
+            </div>
+            <div className="flex-1 flex justify-center">
+              <img
+                src={heroImg}
+                alt="Person working with technology"
+                className="w-full max-w-lg"
+                data-testid="img-hero"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -56,13 +65,12 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Card className="border border-border/50 shadow-sm hover-elevate bg-white">
-              <CardContent className="p-8">
-                <div
-                  className="w-14 h-14 bg-primary/10 rounded-2xl
-                    flex items-center justify-center mb-6"
-                >
-                  <Code className="h-7 w-7 text-primary" />
-                </div>
+              <CardContent className="p-8 text-center">
+                <img
+                  src={websiteIcon}
+                  alt="Web Development"
+                  className="h-16 w-16 mx-auto mb-6"
+                />
                 <h3 className="text-xl font-bold mb-3">Web Development</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Over 20 years of website design and development experience
@@ -72,13 +80,12 @@ export default function Home() {
             </Card>
 
             <Card className="border border-border/50 shadow-sm hover-elevate bg-white">
-              <CardContent className="p-8">
-                <div
-                  className="w-14 h-14 bg-primary/10 rounded-2xl
-                    flex items-center justify-center mb-6"
-                >
-                  <Wifi className="h-7 w-7 text-primary" />
-                </div>
+              <CardContent className="p-8 text-center">
+                <img
+                  src={networkIcon}
+                  alt="Networking"
+                  className="h-16 w-16 mx-auto mb-6"
+                />
                 <h3 className="text-xl font-bold mb-3">Networking</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Cisco Certified Network Academy (CCNA) trained with
@@ -89,13 +96,12 @@ export default function Home() {
             </Card>
 
             <Card className="border border-border/50 shadow-sm hover-elevate bg-white">
-              <CardContent className="p-8">
-                <div
-                  className="w-14 h-14 bg-primary/10 rounded-2xl
-                    flex items-center justify-center mb-6"
-                >
-                  <Monitor className="h-7 w-7 text-primary" />
-                </div>
+              <CardContent className="p-8 text-center">
+                <img
+                  src={troubleshootingIcon}
+                  alt="Helpful Tech"
+                  className="h-16 w-16 mx-auto mb-6"
+                />
                 <h3 className="text-xl font-bold mb-3">Helpful Tech</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Classically-trained computer scientist with a knack for
@@ -105,13 +111,12 @@ export default function Home() {
             </Card>
 
             <Card className="border border-border/50 shadow-sm hover-elevate bg-white">
-              <CardContent className="p-8">
-                <div
-                  className="w-14 h-14 bg-primary/10 rounded-2xl
-                    flex items-center justify-center mb-6"
-                >
-                  <ShieldCheck className="h-7 w-7 text-primary" />
-                </div>
+              <CardContent className="p-8 text-center">
+                <img
+                  src={securityPlusLogo}
+                  alt="Basic Cyber Security"
+                  className="h-16 w-16 mx-auto mb-6 rounded-lg"
+                />
                 <h3 className="text-xl font-bold mb-3">
                   Basic Cyber Security
                 </h3>

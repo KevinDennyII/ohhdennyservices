@@ -1,6 +1,8 @@
 import { Link } from "wouter";
-import { MonitorSmartphone, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { SiX, SiLinkedin } from "react-icons/si";
+import logoBadge from "@assets/cropped-OSD_site_badge_1773274389676.jpg";
+import sslSeal from "@assets/positivessl_trust_seal_lg_222x54_1773274389677.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,10 +12,12 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="bg-primary p-1.5 rounded-md">
-                <MonitorSmartphone className="h-5 w-5 text-white" />
-              </div>
+            <Link href="/" className="flex items-center gap-3">
+              <img
+                src={logoBadge}
+                alt="OhhDenny Services"
+                className="h-10 w-10 rounded-md"
+              />
               <span className="font-bold text-lg text-foreground">
                 OhhDenny Services
               </span>
@@ -124,6 +128,11 @@ export function Footer() {
             text-muted-foreground"
         >
           <p>&copy; {currentYear} OhhDenny Services, LLC.</p>
+          <img
+            src={sslSeal}
+            alt="Secured by PositiveSSL"
+            className="h-8 opacity-70"
+          />
         </div>
       </div>
     </footer>

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, MonitorSmartphone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logoFull from "@assets/ODS_brand-OhhDenny-Services-LLC_1773274389677.jpg";
+import logoBadge from "@assets/cropped-OSD_site_badge_1773274389676.jpg";
 
 const links = [
   { href: "/", label: "Home" },
@@ -32,18 +34,16 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div
-              className="bg-primary p-2 rounded-lg
-                group-hover:bg-primary/90 transition-colors"
-            >
-              <MonitorSmartphone className="h-6 w-6 text-white" />
-            </div>
-            <span
-              className="font-bold text-xl tracking-tight
-                text-foreground hidden sm:block"
-            >
-              OhhDenny Services
-            </span>
+            <img
+              src={logoBadge}
+              alt="OhhDenny Services"
+              className="h-10 w-10 rounded-lg sm:hidden"
+            />
+            <img
+              src={logoFull}
+              alt="OhhDenny Services LLC"
+              className="hidden sm:block h-10"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
