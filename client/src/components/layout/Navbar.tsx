@@ -42,7 +42,7 @@ export function Navbar() {
             <img
               src={logoFull}
               alt="OhhDenny Services LLC"
-              className="hidden sm:block h-10"
+              className="hidden sm:block h-14"
             />
           </Link>
 
