@@ -158,9 +158,13 @@ export default function Pricing() {
                     Custom Website
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Full website build including discovery, design, development,
-                    and modifications. Non-refundable deposit of 50% before
-                    start of implementation.
+                    A complete website build from discovery and design to development and final modifications.
+                  </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed mt-2">
+                    <strong>Why credits?</strong> You pay for the finished result, not the hours it takes. Whether we finish in 100 hours or 150, the price is the same.
+                  </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed mt-2">
+                    <strong>Payment:</strong> Full credit purchase required before kickoff to secure your spot in our schedule.
                   </p>
                 </div>
                 <span className="text-2xl font-extrabold text-foreground shrink-0">
@@ -179,7 +183,10 @@ export default function Pricing() {
                     Website Maintenance/Support
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    Ongoing maintenance and support. New development NOT included.
+                    Ongoing care to keep your site secure, updated, and running smoothly.
+                  </p>
+                  <p className="text-muted-foreground text-sm mt-2">
+                    Note: This covers maintenance only; new feature development is billed separately.
                   </p>
                 </div>
                 <span className="text-2xl font-extrabold text-foreground shrink-0">
@@ -198,13 +205,13 @@ export default function Pricing() {
                     Website Administration Training
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    I will teach you how to maintain your website. Each
-                    session covers up to 4 hours.
+                    I’ll teach you how to manage your own site so you feel confident and independent.
+                  </p>
+                  <p className="text-muted-foreground text-sm mt-2">
+                    Each session covers up to 4 hours of hands-on learning.
                   </p>
                   <p className="text-muted-foreground text-sm mt-2 italic">
-                    ...and don't worry you can always contact me for any
-                    questions or concerns. I am always happy to help and
-                    spread the wealth of knowledge!
+                    ...and don't worry, you can always contact me for any questions or concerns. I am always happy to help and spread the wealth of knowledge!
                   </p>
                 </div>
                 <span className="text-2xl font-extrabold text-foreground shrink-0">
