@@ -4,7 +4,7 @@ import aboutHeroImg from "@assets/JPEG-scaled_1773274389677.jpg";
 import networkTopology from "@assets/ins_networktopology_proposed3Official-2-e1726727591572_1773274389676.jpg";
 import securityPlusLogo from "@assets/SecurityPlus-Logo-Certified-5-e1543775013910_1773274389676.jpg";
 import awsDeveloper from "@assets/AWSCertifiedDeveloper-e1550367513205_1773274389676.png";
-import awsCertified from "@assets/AWS_Certified_Logo_294x230_Color_1773274389677.jpg";
+import microsoftCertification from "@assets/Special_ProgHTML5_Blk.png";
 
 export default function About() {
   useSEO({
@@ -100,20 +100,20 @@ export default function About() {
                 <img
                   src={securityPlusLogo}
                   alt="CompTIA Security+ Certified"
-                  className="h-20 object-contain"
+                  className="h-24 object-contain"
                   data-testid="img-cert-securityplus"
                 />
                 <img
                   src={awsDeveloper}
                   alt="AWS Certified Developer Associate"
-                  className="h-20 object-contain"
+                  className="h-24 object-contain"
                   data-testid="img-cert-aws-developer"
                 />
                 <img
-                  src={awsCertified}
-                  alt="AWS Certified"
-                  className="h-12 object-contain"
-                  data-testid="img-cert-aws"
+                  src={microsoftCertification}
+                  alt="Microsoft Certified"
+                  className="h-24 object-contain"
+                  data-testid="img-cert-microsoft"
                 />
               </div>
             </div>
