@@ -3,6 +3,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
+import { sendContactEmail } from "./email";
 
 const SITE_URL = "https://ohhdennyservices.com";
 
@@ -84,6 +85,7 @@ ${pages
 
       const input = api.contact.create.input.parse(req.body);
       const message = await storage.createContactMessage(input);
+      await sendContactEmail(input);
       res.status(201).json(message);
     } catch (err) {
       if (err instanceof z.ZodError) {
