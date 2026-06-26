@@ -148,6 +148,32 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="py-24 bg-slate-50 border-y">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              See What We've Built
+            </h2>
+            <p className="text-muted-foreground text-lg text-balance">
+              From nonprofit sites to property management portals — explore
+              live websites and IT projects we've delivered for real clients.
+            </p>
+          </div>
+          <div className="text-center">
+            <Link
+              href="/portfolio"
+              data-testid="link-portfolio-cta"
+              className="inline-flex h-12 items-center justify-center
+                rounded-md bg-primary text-primary-foreground px-8
+                text-base font-medium shadow transition-colors
+                hover:bg-primary/90 gap-2"
+            >
+              View Our Work <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="py-24 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
