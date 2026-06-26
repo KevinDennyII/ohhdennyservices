@@ -64,8 +64,8 @@ const liveWebsites: WebsiteProject[] = [
     title: "Fireplace Records DC",
     url: "https://fireplacerecordsdc.com",
     description:
-      "A music label site with personality — built to showcase artists, releases, and the DC music scene.",
-    tags: ["Music", "Entertainment"],
+      "A local record store in the DMV — built to welcome vinyl diggers with store info, hours, and the latest finds.",
+    tags: ["Retail", "Music"],
     screenshot: screenshotFireplaceRecords,
   },
   {
