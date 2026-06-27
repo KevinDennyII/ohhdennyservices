@@ -3,11 +3,8 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { useSEO } from "@/hooks/use-seo";
+import { coreServices } from "@/data/services";
 import heroImg from "@assets/PNG-copy_1773274389677.png";
-import websiteIcon from "@assets/website_1773274389676.png";
-import networkIcon from "@assets/network_1773274389678.png";
-import troubleshootingIcon from "@assets/troubleshooting_1773274389677.png";
-import securityPlusLogo from "@assets/SecurityPlus-Logo-Certified-5-e1543775013910_1773274389676.jpg";
 
 export default function Home() {
   useSEO({
@@ -71,68 +68,28 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border border-border/50 shadow-sm hover-elevate bg-white">
-              <CardContent className="p-8 text-center">
-                <img
-                  src={websiteIcon}
-                  alt="Web Development"
-                  className="h-16 w-16 mx-auto mb-6"
-                />
-                <h3 className="text-xl font-bold mb-3">Web Development</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Over 20 years of website design and development experience
-                  building sites that work for your business.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-border/50 shadow-sm hover-elevate bg-white">
-              <CardContent className="p-8 text-center">
-                <img
-                  src={networkIcon}
-                  alt="Networking"
-                  className="h-16 w-16 mx-auto mb-6"
-                />
-                <h3 className="text-xl font-bold mb-3">Networking</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Cisco Certified Network Academy (CCNA) trained with
-                  hands-on experience consulting and implementing
-                  networking solutions.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-border/50 shadow-sm hover-elevate bg-white">
-              <CardContent className="p-8 text-center">
-                <img
-                  src={troubleshootingIcon}
-                  alt="Helpful Tech"
-                  className="h-16 w-16 mx-auto mb-6"
-                />
-                <h3 className="text-xl font-bold mb-3">Helpful Tech</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Classically-trained computer scientist with a knack for
-                  all things tech!
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-border/50 shadow-sm hover-elevate bg-white">
-              <CardContent className="p-8 text-center">
-                <img
-                  src={securityPlusLogo}
-                  alt="Basic Cyber Security"
-                  className="h-16 w-16 mx-auto mb-6 rounded-lg"
-                />
-                <h3 className="text-xl font-bold mb-3">
-                  Basic Cyber Security
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  CompTIA Security+ certified professionals with a wealth
-                  of knowledge on Cyber Security.
-                </p>
-              </CardContent>
-            </Card>
+            {coreServices.map((service) => (
+              <Card
+                key={service.title}
+                className="border border-border/50 shadow-sm hover-elevate bg-white"
+              >
+                <CardContent className="p-8 text-center">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className={`h-16 w-16 mx-auto mb-6${
+                      service.title === "Basic Cyber Security"
+                        ? " rounded-lg"
+                        : ""
+                    }`}
+                  />
+                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {service.homeDescription}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
           <div className="mt-12 text-center">

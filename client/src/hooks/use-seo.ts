@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@shared/site";
 
 interface SEOProps {
   title: string;
@@ -6,13 +7,10 @@ interface SEOProps {
   path: string;
 }
 
-const BASE_URL = "https://ohhdennyservices.com";
-const SITE_NAME = "OhhDenny Services, LLC";
-
 export function useSEO({ title, description, path }: SEOProps) {
   useEffect(() => {
     const fullTitle = path === "/"
-      ? `${SITE_NAME} — Helping People Help Themselves With Tech`
+      ? `${SITE_NAME} — ${SITE_TAGLINE}`
       : `${title} | ${SITE_NAME}`;
 
     document.title = fullTitle;
@@ -30,19 +28,19 @@ export function useSEO({ title, description, path }: SEOProps) {
     setMeta("name", "description", description);
     setMeta("property", "og:title", fullTitle);
     setMeta("property", "og:description", description);
-    setMeta("property", "og:url", `${BASE_URL}${path}`);
+    setMeta("property", "og:url", `${SITE_URL}${path}`);
     setMeta("name", "twitter:title", fullTitle);
     setMeta("name", "twitter:description", description);
 
     const canonical = document.querySelector("link[rel='canonical']");
     if (canonical) {
-      canonical.setAttribute("href", `${BASE_URL}${path}`);
+      canonical.setAttribute("href", `${SITE_URL}${path}`);
     }
 
     if (typeof window.gtag === "function") {
       window.gtag("event", "page_view", {
         page_title: fullTitle,
-        page_location: `${BASE_URL}${path}`,
+        page_location: `${SITE_URL}${path}`,
         page_path: path,
       });
     }

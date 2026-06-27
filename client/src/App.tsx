@@ -5,12 +5,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
-// Components
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/JsonLd";
 
-// Pages
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
@@ -20,9 +18,9 @@ import Portfolio from "@/pages/Portfolio";
 
 function Router() {
   return (
-    <main className="flex-grow flex flex-col min-h-screen">
+    <div className="flex-grow flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex-1">
+      <main className="flex-1">
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
@@ -32,9 +30,9 @@ function Router() {
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
         </Switch>
-      </div>
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }
 

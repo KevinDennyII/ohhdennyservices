@@ -2,10 +2,7 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { useSEO } from "@/hooks/use-seo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
-import websiteIcon from "@assets/website_1773274389676.png";
-import networkIcon from "@assets/network_1773274389678.png";
-import onlineLearningIcon from "@assets/online-learning_2436874_1773274389677.png";
-import securityPlusLogo from "@assets/SecurityPlus-Logo-Certified-5-e1543775013910_1773274389676.jpg";
+import { coreServices, getServicePageImage } from "@/data/services";
 import computerRepairImg from "@assets/c466932390fbe92284dda9c55966a5a2_1773274389677.png";
 import softwareUpdateIcon from "@assets/2017993_1773274389676.png";
 import maintenanceIcon from "@assets/2255768_1773274389677.png";
@@ -13,32 +10,17 @@ import serverImg from "@assets/images_1773274389678.jpg";
 import trainingIcon from "@assets/png-clipart-computer-icons-education-learning-training-others-_1773274389677.png";
 import diagnosticIcon from "@assets/diagnostic_1773274389676.png";
 import troubleshootingIcon from "@assets/troubleshooting_1773274389677.png";
+import networkIcon from "@assets/network_1773274389678.png";
 
-const servicesList = [
-  {
-    title: "Web Development",
-    description:
-      "We have over 20 years of website design and development experience.",
-    image: websiteIcon,
-  },
-  {
-    title: "Networking",
-    description:
-      "Cisco Certified Network Academy (CCNA) trained with hands-on experience in consulting and implementing networking system solutions for small businesses.",
-    image: networkIcon,
-  },
-  {
-    title: "Helpful Tech",
-    description:
-      "Classically-trained computer scientist with a knack for all things tech!",
-    image: onlineLearningIcon,
-  },
-  {
-    title: "Basic Cyber Security",
-    description:
-      "We have CompTIA Security+ certified professionals with a wealth of knowledge on Cyber Security. We are also avid followers of the TWIT.tv webcast, Security Now.",
-    image: securityPlusLogo,
-  },
+const capabilities = [
+  { img: computerRepairImg, label: "Computer Repair" },
+  { img: softwareUpdateIcon, label: "Software Updates" },
+  { img: maintenanceIcon, label: "Website Maintenance" },
+  { img: serverImg, label: "Server & Hosting" },
+  { img: trainingIcon, label: "Tech Training" },
+  { img: diagnosticIcon, label: "Diagnostics" },
+  { img: troubleshootingIcon, label: "Troubleshooting" },
+  { img: networkIcon, label: "Network Setup" },
 ];
 
 export default function Services() {
@@ -67,16 +49,16 @@ export default function Services() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {servicesList.map((service, i) => (
+            {coreServices.map((service) => (
               <Card
-                key={i}
-                data-testid={`card-service-${i}`}
+                key={service.title}
+                data-testid={`card-service-${service.title.toLowerCase().replace(/\s+/g, "-")}`}
                 className="border border-border/50 shadow-sm
                   hover:shadow-md transition-shadow"
               >
                 <CardHeader className="pb-4">
                   <img
-                    src={service.image}
+                    src={getServicePageImage(service)}
                     alt={service.title}
                     className="h-14 w-14 object-contain mb-4 rounded-lg"
                   />
@@ -98,22 +80,13 @@ export default function Services() {
               What We Can Help With
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {[
-                { img: computerRepairImg, label: "Computer Repair" },
-                { img: softwareUpdateIcon, label: "Software Updates" },
-                { img: maintenanceIcon, label: "Website Maintenance" },
-                { img: serverImg, label: "Server & Hosting" },
-                { img: trainingIcon, label: "Tech Training" },
-                { img: diagnosticIcon, label: "Diagnostics" },
-                { img: troubleshootingIcon, label: "Troubleshooting" },
-                { img: networkIcon, label: "Network Setup" },
-              ].map((item, i) => (
+              {capabilities.map((item) => (
                 <div
-                  key={i}
+                  key={item.label}
                   className="flex flex-col items-center text-center p-4
                     rounded-xl bg-slate-50 border border-border/50
                     hover:shadow-sm transition-shadow"
-                  data-testid={`card-capability-${i}`}
+                  data-testid={`card-capability-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <img
                     src={item.img}

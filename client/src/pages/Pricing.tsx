@@ -113,11 +113,11 @@ export default function Pricing() {
                   color: "bg-purple-50 border-purple-200",
                   badge: "text-purple-700 bg-purple-100",
                 },
-              ].map((tier, i) => (
+              ].map((tier) => (
                 <Card
-                  key={i}
+                  key={tier.credits}
                   className={`border ${tier.color} shadow-sm`}
-                  data-testid={`card-tier-${i}`}
+                  data-testid={`card-tier-${tier.credits.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <CardContent className="p-6 text-center">
                     <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-3 ${tier.badge}`}>
@@ -445,15 +445,15 @@ export default function Pricing() {
                     "Dedicated support",
                   ],
                 },
-              ].map((pkg, i) => (
+              ].map((pkg) => (
                 <Card
-                  key={i}
+                  key={pkg.name}
                   className={`border shadow-sm relative ${
                     pkg.popular
                       ? "border-primary shadow-md ring-2 ring-primary/20"
                       : "border-border/50"
                   }`}
-                  data-testid={`card-package-${i}`}
+                  data-testid={`card-package-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   {pkg.popular && (
                     <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-semibold px-4 py-1 rounded-full">
@@ -471,8 +471,8 @@ export default function Pricing() {
                       {pkg.price}
                     </p>
                     <ul className="text-sm text-muted-foreground space-y-3 text-left">
-                      {pkg.features.map((feature, j) => (
-                        <li key={j} className="flex items-start gap-2">
+                      {pkg.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                           <span>{feature}</span>
                         </li>

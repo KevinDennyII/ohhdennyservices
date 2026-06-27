@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { useSEO } from "@/hooks/use-seo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api, type ContactInput } from "@shared/routes";
+import { CONTACT_EMAIL, LOCATION, SOCIAL_LINKS } from "@shared/site";
 import { useSubmitContact } from "@/hooks/use-contact";
 import {
   Form,
@@ -27,6 +29,7 @@ export default function Contact() {
   });
 
   const mutation = useSubmitContact();
+  const honeypotRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<ContactInput>({
     resolver: zodResolver(api.contact.create.input),
@@ -39,11 +42,17 @@ export default function Contact() {
   });
 
   function onSubmit(data: ContactInput) {
-    const honeypot = (document.querySelector('input[name="website"]') as HTMLInputElement)?.value;
-    const payload = honeypot ? { ...data, website: honeypot } : data;
+    const honeypotValue = honeypotRef.current?.value ?? "";
+    const payload = honeypotValue
+      ? { ...data, website: honeypotValue }
+      : data;
+
     mutation.mutate(payload as ContactInput, {
       onSuccess: () => {
         form.reset();
+        if (honeypotRef.current) {
+          honeypotRef.current.value = "";
+        }
       },
     });
   }
@@ -83,12 +92,12 @@ export default function Contact() {
                         Email
                       </h4>
                       <a
-                        href="mailto:ohhdennyservicesllc@gmail.com"
+                        href={`mailto:${CONTACT_EMAIL}`}
                         className="text-muted-foreground text-sm
                           hover:text-primary transition-colors"
                         data-testid="link-email"
                       >
-                        ohhdennyservicesllc@gmail.com
+                        {CONTACT_EMAIL}
                       </a>
                     </div>
                   </CardContent>
@@ -104,7 +113,7 @@ export default function Contact() {
                         Location
                       </h4>
                       <p className="text-muted-foreground text-sm">
-                        Selma, Texas
+                        {LOCATION}
                       </p>
                     </div>
                   </CardContent>
@@ -117,7 +126,7 @@ export default function Contact() {
                     </h4>
                     <div className="flex items-center gap-4">
                       <a
-                        href="https://twitter.com"
+                        href={SOCIAL_LINKS.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground
@@ -128,7 +137,7 @@ export default function Contact() {
                         <SiX className="h-5 w-5" />
                       </a>
                       <a
-                        href="https://linkedin.com"
+                        href={SOCIAL_LINKS.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground
@@ -157,13 +166,18 @@ export default function Contact() {
                       className="space-y-6"
                       data-testid="form-contact"
                     >
-                      <div style={{ position: "absolute", left: "-9999px", height: 0, overflow: "hidden" }}>
+                      <div
+                        className="absolute -left-[9999px] h-0 overflow-hidden"
+                        aria-hidden="true"
+                      >
+                        <label htmlFor="website-honeypot">Website</label>
                         <input
+                          ref={honeypotRef}
+                          id="website-honeypot"
                           type="text"
                           name="website"
                           autoComplete="off"
                           tabIndex={-1}
-                          aria-hidden="true"
                         />
                       </div>
                       <FormField

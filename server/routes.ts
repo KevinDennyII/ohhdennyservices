@@ -2,18 +2,28 @@ import type { Express, Request, Response, NextFunction } from "express";
 import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
+import { SITE_URL } from "@shared/site";
+import { applySecurityHeaders } from "./security";
 import { z } from "zod";
 import { sendContactEmail } from "./email";
-
-const SITE_URL = "https://ohhdennyservices.com";
 
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 
+function pruneExpiredRateLimits(now: number) {
+  rateLimitMap.forEach((entry, ip) => {
+    if (now > entry.resetAt) {
+      rateLimitMap.delete(ip);
+    }
+  });
+}
+
 function rateLimit(req: Request, res: Response, next: NextFunction) {
-  const ip = req.ip || req.socket.remoteAddress || "unknown";
   const now = Date.now();
+  pruneExpiredRateLimits(now);
+
+  const ip = req.ip || req.socket.remoteAddress || "unknown";
   const entry = rateLimitMap.get(ip);
 
   if (!entry || now > entry.resetAt) {
@@ -29,22 +39,16 @@ function rateLimit(req: Request, res: Response, next: NextFunction) {
   return next();
 }
 
+function isHoneypotTriggered(body: Record<string, unknown>): boolean {
+  return Boolean(body.website || body.url || body.company_url);
+}
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
 
-  app.use((_req, res, next) => {
-    res.setHeader("X-Content-Type-Options", "nosniff");
-    res.setHeader("X-Frame-Options", "SAMEORIGIN");
-    res.setHeader("X-XSS-Protection", "1; mode=block");
-    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-    res.setHeader(
-      "Permissions-Policy",
-      "camera=(), microphone=(), geolocation=()"
-    );
-    next();
-  });
+  app.use(applySecurityHeaders);
 
   app.get("/robots.txt", (_req, res) => {
     res.type("text/plain").send(
@@ -80,8 +84,15 @@ ${pages
 
   app.post(api.contact.create.path, rateLimit, async (req, res) => {
     try {
-      if (req.body.website || req.body.url || req.body.company_url) {
-        return res.status(201).json({ id: 0, name: "", email: "", phone: null, message: "", createdAt: new Date().toISOString() });
+      if (isHoneypotTriggered(req.body)) {
+        return res.status(201).json({
+          id: 0,
+          name: "Anonymous",
+          email: "noreply@example.com",
+          phone: null,
+          message: "Message received.",
+          createdAt: new Date().toISOString(),
+        });
       }
 
       const input = api.contact.create.input.parse(req.body);
@@ -95,6 +106,7 @@ ${pages
           field: err.errors[0].path.join('.'),
         });
       }
+      console.error("Contact form error:", err);
       res.status(500).json({ message: "Internal server error" });
     }
   });

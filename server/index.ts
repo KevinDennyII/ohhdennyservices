@@ -6,20 +6,9 @@ import { createServer } from "http";
 const app = express();
 const httpServer = createServer(app);
 
-declare module "http" {
-  interface IncomingMessage {
-    rawBody: unknown;
-  }
-}
+app.set("trust proxy", 1);
 
-app.use(
-  express.json({
-    verify: (req, _res, buf) => {
-      req.rawBody = buf;
-    },
-  }),
-);
-
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 export function log(message: string, source = "express") {
@@ -66,15 +55,23 @@ app.use((req, res, next) => {
 (async () => {
   await registerRoutes(httpServer, app);
 
-  app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+  app.use((err: unknown, _req: Request, res: Response, next: NextFunction) => {
+    const status =
+      typeof err === "object" &&
+      err !== null &&
+      ("status" in err || "statusCode" in err)
+        ? Number((err as { status?: number; statusCode?: number }).status ??
+            (err as { statusCode?: number }).statusCode)
+        : 500;
 
     console.error("Internal Server Error:", err);
 
     if (res.headersSent) {
       return next(err);
     }
+
+    const message =
+      status >= 500 ? "Internal Server Error" : "Request failed";
 
     return res.status(status).json({ message });
   });

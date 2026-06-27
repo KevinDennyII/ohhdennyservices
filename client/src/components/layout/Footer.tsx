@@ -1,11 +1,19 @@
 import { Link } from "wouter";
 import { Mail, MapPin } from "lucide-react";
 import { SiX, SiLinkedin } from "react-icons/si";
+import {
+  CONTACT_EMAIL,
+  LOCATION,
+  SITE_NAME,
+  SOCIAL_LINKS,
+} from "@shared/site";
+import { FOOTER_SERVICE_LABELS, NAV_LINKS } from "@shared/navigation";
 import logoBadge from "@assets/cropped-OSD_site_badge_1773274389676.jpg";
 import sslSeal from "@assets/positivessl_trust_seal_lg_222x54_1773274389677.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const companyLinks = NAV_LINKS.filter((link) => link.href !== "/");
 
   return (
     <footer className="bg-slate-50 border-t pt-16 pb-8">
@@ -28,67 +36,28 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-4">
-              Company
-            </h3>
+            <h3 className="font-semibold text-foreground mb-4">Company</h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/about"
-                  className="text-sm text-muted-foreground
-                    hover:text-primary transition-colors"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="text-sm text-muted-foreground
-                    hover:text-primary transition-colors"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/portfolio"
-                  className="text-sm text-muted-foreground
-                    hover:text-primary transition-colors"
-                >
-                  Our Work
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pricing"
-                  className="text-sm text-muted-foreground
-                    hover:text-primary transition-colors"
-                >
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-sm text-muted-foreground
-                    hover:text-primary transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
+              {companyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground
+                      hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-4">
-              Services
-            </h3>
+            <h3 className="font-semibold text-foreground mb-4">Services</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li>Web Development</li>
-              <li>Networking</li>
-              <li>Helpful Tech</li>
-              <li>Basic Cyber Security</li>
+              {FOOTER_SERVICE_LABELS.map((label) => (
+                <li key={label}>{label}</li>
+              ))}
             </ul>
           </div>
 
@@ -99,15 +68,20 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li className="flex items-start gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
-                <span>ohhdennyservicesllc@gmail.com</span>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="hover:text-primary transition-colors"
+                >
+                  {CONTACT_EMAIL}
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0" />
-                <span>Selma, Texas</span>
+                <span>{LOCATION}</span>
               </li>
               <li className="flex items-center gap-3">
                 <a
-                  href="https://twitter.com"
+                  href={SOCIAL_LINKS.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground
@@ -117,7 +91,7 @@ export function Footer() {
                   <SiX className="h-4 w-4" />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href={SOCIAL_LINKS.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground
@@ -136,7 +110,7 @@ export function Footer() {
             items-center justify-between gap-4 text-sm
             text-muted-foreground"
         >
-          <p>&copy; {currentYear} OhhDenny Services, LLC.</p>
+          <p>&copy; {currentYear} {SITE_NAME}.</p>
           <img
             src={sslSeal}
             alt="Secured by PositiveSSL"

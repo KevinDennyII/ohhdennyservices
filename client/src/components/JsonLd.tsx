@@ -1,13 +1,19 @@
 import { useEffect } from "react";
+import {
+  CONTACT_EMAIL,
+  SITE_NAME,
+  SITE_URL,
+  SOCIAL_LINKS,
+} from "@shared/site";
 
 const businessSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "OhhDenny Services, LLC",
+  name: SITE_NAME,
   description:
     "IT consulting, web development, networking, and cyber security services for small businesses and nonprofits.",
-  url: "https://ohhdennyservices.com",
-  email: "ohhdennyservicesllc@gmail.com",
+  url: SITE_URL,
+  email: CONTACT_EMAIL,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Selma",
@@ -29,7 +35,7 @@ const businessSchema = {
     "Computer Repair",
     "Tech Training",
   ],
-  sameAs: ["https://twitter.com", "https://linkedin.com"],
+  sameAs: [SOCIAL_LINKS.twitter, SOCIAL_LINKS.linkedin],
 };
 
 export function JsonLd() {

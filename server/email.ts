@@ -1,6 +1,7 @@
 
 import nodemailer from 'nodemailer';
 import type { ContactInput } from '@shared/routes';
+import { escapeHtml } from './security';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -11,19 +12,36 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function sendContactEmail(data: ContactInput) {
+  const safeName = escapeHtml(data.name);
+  const safeEmail = escapeHtml(data.email);
+  const safePhone = data.phone ? escapeHtml(data.phone) : null;
+  const safeMessage = escapeHtml(data.message);
+
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER, // Sending to yourself
+    to: process.env.EMAIL_USER,
     subject: `New Contact Form Submission from ${data.name}`,
+    text: [
+      'You have a new contact form submission:',
+      '',
+      `Name: ${data.name}`,
+      `Email: ${data.email}`,
+      data.phone ? `Phone: ${data.phone}` : null,
+      '',
+      'Message:',
+      data.message,
+    ]
+      .filter(Boolean)
+      .join('\n'),
     html: `
       <p>You have a new contact form submission:</p>
       <ul>
-        <li><strong>Name:</strong> ${data.name}</li>
-        <li><strong>Email:</strong> ${data.email}</li>
-        ${data.phone ? `<li><strong>Phone:</strong> ${data.phone}</li>` : ''}
+        <li><strong>Name:</strong> ${safeName}</li>
+        <li><strong>Email:</strong> ${safeEmail}</li>
+        ${safePhone ? `<li><strong>Phone:</strong> ${safePhone}</li>` : ''}
         <li><strong>Message:</strong></li>
       </ul>
-      <p>${data.message}</p>
+      <p>${safeMessage.replace(/\n/g, '<br>')}</p>
     `,
   };
 

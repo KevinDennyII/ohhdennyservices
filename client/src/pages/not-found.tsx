@@ -1,21 +1,28 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
+import { Link } from "wouter";
+import { PageTransition } from "@/components/layout/PageTransition";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
-          </div>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
+    <PageTransition>
+      <div className="pt-32 pb-20 min-h-[50vh] flex items-center justify-center bg-slate-50">
+        <div className="text-center max-w-md px-4">
+          <p className="text-6xl font-extrabold text-primary mb-4">404</p>
+          <h1 className="text-2xl font-bold text-foreground mb-3">
+            Page not found
+          </h1>
+          <p className="text-muted-foreground mb-8">
+            The page you are looking for does not exist or may have moved.
           </p>
-        </CardContent>
-      </Card>
-    </div>
+          <Button asChild>
+            <Link href="/" className="inline-flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </PageTransition>
   );
 }
