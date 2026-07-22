@@ -552,11 +552,11 @@ export default function Portfolio() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Got a project in mind?
+              Need a hand with tech?
             </h2>
             <p className="text-primary-foreground/80 text-xl mb-10 max-w-2xl mx-auto">
-              Whether you need a website, IT support, or want to learn how to
-              build with AI — we'd love to hear from you.
+              Website acting up, computers being weird, or just curious about
+              AI — shoot us a message. We're happy to help.
             </p>
             <Link
               href="/contact"
@@ -565,7 +565,7 @@ export default function Portfolio() {
                 rounded-md bg-white text-primary px-8 text-base font-medium
                 shadow transition-colors hover:bg-slate-100"
             >
-              Start a Conversation
+              Hit Us Up
             </Link>
           </div>
         </div>
