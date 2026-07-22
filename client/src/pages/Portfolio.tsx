@@ -92,16 +92,15 @@ const liveWebsites: WebsiteProject[] = [
     tags: ["Inspections", "Scheduling"],
     screenshot: screenshotRealHomeLead,
   },
+  {
+    title: "Abundance Blueprint",
+    url: "https://www.longmoneyconcepts.com/",
+    description:
+      "A book site for La'Toya Ray, CPA — introducing her financial framework and connecting readers with her work.",
+    tags: ["Finance", "Author"],
+    screenshot: screenshotAbundanceBlueprint,
+  },
 ];
-
-const upcomingProject = {
-  title: "Abundance Blueprint",
-  url: "https://abundance-blueprint-book.replit.app/",
-  description:
-    "An upcoming book site for La'Toya Ray, CPA — designed to introduce her financial framework and connect readers with her work.",
-  tags: ["Upcoming", "Finance", "Author"],
-  screenshot: screenshotAbundanceBlueprint,
-};
 
 const aiTeachingSteps = [
   {
@@ -138,13 +137,7 @@ const aiTeachingSteps = [
   },
 ];
 
-function ProjectCard({
-  project,
-  upcoming = false,
-}: {
-  project: WebsiteProject | typeof upcomingProject;
-  upcoming?: boolean;
-}) {
+function ProjectCard({ project }: { project: WebsiteProject }) {
   return (
     <Card
       className="group border border-border/50 shadow-sm overflow-hidden
@@ -163,14 +156,6 @@ function ProjectCard({
           className="absolute inset-0 bg-gradient-to-t from-black/30
             via-transparent to-transparent pointer-events-none"
         />
-        {upcoming && (
-          <Badge
-            className="absolute top-3 right-3 bg-white/90 text-foreground
-              border-0 shadow-sm z-10"
-          >
-            Coming Soon
-          </Badge>
-        )}
         <Globe
           className="absolute bottom-3 right-3 h-5 w-5 text-white/80
             drop-shadow-sm group-hover:text-white transition-colors z-10"
@@ -198,7 +183,7 @@ function ProjectCard({
             text-primary hover:underline"
           data-testid={`link-project-${project.title.toLowerCase().replace(/\s+/g, "-")}`}
         >
-          {upcoming ? "Preview Site" : "Visit Live Site"}
+          Visit Live Site
           <ExternalLink className="h-3.5 w-3.5" />
         </a>
       </CardContent>
@@ -286,16 +271,6 @@ export default function Portfolio() {
             {liveWebsites.map((site) => (
               <ProjectCard key={site.url} project={site} />
             ))}
-          </div>
-
-          <div className="mt-16">
-            <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary" />
-              On the Horizon
-            </h3>
-            <div className="max-w-md">
-              <ProjectCard project={upcomingProject} upcoming />
-            </div>
           </div>
         </div>
       </section>
