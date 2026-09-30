@@ -15,6 +15,7 @@ import Services from "@/pages/Services";
 import Pricing from "@/pages/Pricing";
 import Contact from "@/pages/Contact";
 import Portfolio from "@/pages/Portfolio";
+import Ai101 from "@/pages/Ai101";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
           <Route path="/services" component={Services} />
           <Route path="/portfolio" component={Portfolio} />
           <Route path="/pricing" component={Pricing} />
+          <Route path="/ai-101" component={Ai101} />
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
         </Switch>
