@@ -4,7 +4,7 @@ import { useSEO } from "@/hooks/use-seo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api, type ContactInput } from "@shared/routes";
-import { CONTACT_EMAIL, LOCATION, SOCIAL_LINKS } from "@shared/site";
+import { CONTACT_EMAIL, LOCATION } from "@shared/site";
 import { useSubmitContact } from "@/hooks/use-contact";
 import {
   Form,
@@ -19,7 +19,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Mail, MapPin, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { SiX, SiLinkedin } from "react-icons/si";
 
 export default function Contact() {
   useSEO({
@@ -115,38 +114,6 @@ export default function Contact() {
                       <p className="text-muted-foreground text-sm">
                         {LOCATION}
                       </p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-none shadow-none bg-slate-50">
-                  <CardContent className="p-6">
-                    <h4 className="font-semibold text-foreground mb-3">
-                      Social
-                    </h4>
-                    <div className="flex items-center gap-4">
-                      <a
-                        href={SOCIAL_LINKS.twitter}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground
-                          hover:text-primary transition-colors"
-                        data-testid="link-twitter"
-                        aria-label="Twitter"
-                      >
-                        <SiX className="h-5 w-5" />
-                      </a>
-                      <a
-                        href={SOCIAL_LINKS.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground
-                          hover:text-primary transition-colors"
-                        data-testid="link-linkedin"
-                        aria-label="LinkedIn"
-                      >
-                        <SiLinkedin className="h-5 w-5" />
-                      </a>
                     </div>
                   </CardContent>
                 </Card>
