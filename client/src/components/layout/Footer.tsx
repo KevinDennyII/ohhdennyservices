@@ -1,11 +1,9 @@
 import { Link } from "wouter";
 import { Mail, MapPin } from "lucide-react";
-import { SiX, SiLinkedin } from "react-icons/si";
 import {
   CONTACT_EMAIL,
   LOCATION,
   SITE_NAME,
-  SOCIAL_LINKS,
 } from "@shared/site";
 import { FOOTER_SERVICE_LABELS, NAV_LINKS } from "@shared/navigation";
 import logoBadge from "@assets/cropped-OSD_site_badge_1773274389676.jpg";
@@ -78,28 +76,6 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0" />
                 <span>{LOCATION}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <a
-                  href={SOCIAL_LINKS.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground
-                    hover:text-primary transition-colors"
-                  aria-label="Twitter"
-                >
-                  <SiX className="h-4 w-4" />
-                </a>
-                <a
-                  href={SOCIAL_LINKS.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground
-                    hover:text-primary transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <SiLinkedin className="h-4 w-4" />
-                </a>
               </li>
             </ul>
           </div>
