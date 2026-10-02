@@ -1,11 +1,9 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import type { Server } from "http";
-import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { SITE_URL } from "@shared/site";
 import { applySecurityHeaders } from "./security";
-import { z } from "zod";
-import { sendContactEmail } from "./email";
+import { processContactSubmission } from "@shared/process-contact";
 
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 5;
@@ -33,27 +31,24 @@ function rateLimit(req: Request, res: Response, next: NextFunction) {
 
   entry.count++;
   if (entry.count > RATE_LIMIT_MAX) {
-    return res.status(429).json({ message: "Too many requests. Please try again later." });
+    return res
+      .status(429)
+      .json({ message: "Too many requests. Please try again later." });
   }
 
   return next();
 }
 
-function isHoneypotTriggered(body: Record<string, unknown>): boolean {
-  return Boolean(body.website || body.url || body.company_url);
-}
-
 export async function registerRoutes(
   httpServer: Server,
-  app: Express
+  app: Express,
 ): Promise<Server> {
-
   app.use(applySecurityHeaders);
 
   app.get("/robots.txt", (_req, res) => {
-    res.type("text/plain").send(
-      `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`
-    );
+    res
+      .type("text/plain")
+      .send(`User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`);
   });
 
   app.get("/sitemap.xml", (_req, res) => {
@@ -74,7 +69,7 @@ ${pages
     <loc>${SITE_URL}${p.loc}</loc>
     <changefreq>${p.changefreq}</changefreq>
     <priority>${p.priority}</priority>
-  </url>`
+  </url>`,
   )
   .join("\n")}
 </urlset>`;
@@ -83,32 +78,10 @@ ${pages
   });
 
   app.post(api.contact.create.path, rateLimit, async (req, res) => {
-    try {
-      if (isHoneypotTriggered(req.body)) {
-        return res.status(201).json({
-          id: 0,
-          name: "Anonymous",
-          email: "noreply@example.com",
-          phone: null,
-          message: "Message received.",
-          createdAt: new Date().toISOString(),
-        });
-      }
-
-      const input = api.contact.create.input.parse(req.body);
-      const message = await storage.createContactMessage(input);
-      await sendContactEmail(input);
-      res.status(201).json(message);
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        return res.status(400).json({
-          message: err.errors[0].message,
-          field: err.errors[0].path.join('.'),
-        });
-      }
-      console.error("Contact form error:", err);
-      res.status(500).json({ message: "Internal server error" });
-    }
+    const result = await processContactSubmission(req.body, {
+      ip: req.ip || req.socket.remoteAddress,
+    });
+    res.status(result.status).json(result.body);
   });
 
   return httpServer;

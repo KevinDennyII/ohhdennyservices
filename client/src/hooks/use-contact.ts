@@ -6,7 +6,7 @@ export function useSubmitContact() {
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: async (data: ContactInput) => {
+    mutationFn: async (data: ContactInput & { website?: string }) => {
       const res = await fetch(api.contact.create.path, {
         method: api.contact.create.method,
         headers: { "Content-Type": "application/json" },
@@ -17,14 +17,19 @@ export function useSubmitContact() {
         let errorMessage = "Failed to submit form. Please try again.";
         try {
           const errorData = await res.json();
-          if (res.status === 400) {
+          if (res.status === 400 || res.status === 403) {
             const parsed = api.contact.create.responses[400].parse(errorData);
             errorMessage = parsed.message;
+          } else if (res.status === 429) {
+            errorMessage =
+              typeof errorData?.message === "string"
+                ? errorData.message
+                : "Too many requests. Please try again later.";
           } else {
             const parsed = api.contact.create.responses[500].parse(errorData);
             errorMessage = parsed.message;
           }
-        } catch (e) {
+        } catch {
           // Fallback to generic error if parsing fails
         }
         throw new Error(errorMessage);
@@ -35,7 +40,8 @@ export function useSubmitContact() {
     onSuccess: () => {
       toast({
         title: "Message Sent!",
-        description: "We've received your message and will get back to you shortly.",
+        description:
+          "We've received your message and will get back to you shortly.",
         variant: "default",
       });
     },

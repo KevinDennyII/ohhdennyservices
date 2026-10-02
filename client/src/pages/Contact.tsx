@@ -3,6 +3,7 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { useSEO } from "@/hooks/use-seo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { api, type ContactInput } from "@shared/routes";
 import { CONTACT_EMAIL, LOCATION } from "@shared/site";
 import { useSubmitContact } from "@/hooks/use-contact";
@@ -20,15 +21,21 @@ import { Button } from "@/components/ui/button";
 import { Mail, MapPin, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as
+  | string
+  | undefined;
+
 export default function Contact() {
   useSEO({
     title: "Contact",
-    description: "Get in touch with OhhDenny Services for web development, IT consulting, networking, or any tech question. Based in Selma, Texas.",
+    description:
+      "Get in touch with OhhDenny Services for web development, IT consulting, networking, or any tech question. Based in Selma, Texas.",
     path: "/contact",
   });
 
   const mutation = useSubmitContact();
   const honeypotRef = useRef<HTMLInputElement>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const form = useForm<ContactInput>({
     resolver: zodResolver(api.contact.create.input),
@@ -37,6 +44,7 @@ export default function Contact() {
       email: "",
       phone: "",
       message: "",
+      turnstileToken: "",
     },
   });
 
@@ -46,12 +54,17 @@ export default function Contact() {
       ? { ...data, website: honeypotValue }
       : data;
 
-    mutation.mutate(payload as ContactInput, {
+    mutation.mutate(payload as ContactInput & { website?: string }, {
       onSuccess: () => {
         form.reset();
+        turnstileRef.current?.reset();
         if (honeypotRef.current) {
           honeypotRef.current.value = "";
         }
+      },
+      onError: () => {
+        turnstileRef.current?.reset();
+        form.setValue("turnstileToken", "");
       },
     });
   }
@@ -215,10 +228,47 @@ export default function Contact() {
                         )}
                       />
 
+                      <FormField
+                        control={form.control}
+                        name="turnstileToken"
+                        render={() => (
+                          <FormItem>
+                            {TURNSTILE_SITE_KEY ? (
+                              <Turnstile
+                                ref={turnstileRef}
+                                siteKey={TURNSTILE_SITE_KEY}
+                                onSuccess={(token) => {
+                                  form.setValue("turnstileToken", token, {
+                                    shouldValidate: true,
+                                  });
+                                }}
+                                onExpire={() => {
+                                  form.setValue("turnstileToken", "", {
+                                    shouldValidate: true,
+                                  });
+                                }}
+                                onError={() => {
+                                  form.setValue("turnstileToken", "", {
+                                    shouldValidate: true,
+                                  });
+                                }}
+                                options={{ theme: "light" }}
+                              />
+                            ) : (
+                              <p className="text-sm text-destructive">
+                                Contact form security is not configured
+                                (missing VITE_TURNSTILE_SITE_KEY).
+                              </p>
+                            )}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
                       <Button
                         type="submit"
                         className="w-full h-12 text-base font-semibold"
-                        disabled={mutation.isPending}
+                        disabled={mutation.isPending || !TURNSTILE_SITE_KEY}
                         data-testid="button-submit"
                       >
                         {mutation.isPending ? (

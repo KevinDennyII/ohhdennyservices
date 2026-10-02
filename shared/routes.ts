@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { insertContactMessageSchema, contactMessages } from './schema';
+import { z } from "zod";
+import { contactInputSchema } from "./schema";
 
 export const errorSchemas = {
   validation: z.object({
@@ -14,26 +14,25 @@ export const errorSchemas = {
 export const api = {
   contact: {
     create: {
-      method: 'POST' as const,
-      path: '/api/contact' as const,
-      input: insertContactMessageSchema,
+      method: "POST" as const,
+      path: "/api/contact" as const,
+      input: contactInputSchema,
       responses: {
         201: z.object({
-          id: z.number(),
-          name: z.string(),
-          email: z.string(),
-          phone: z.string().nullable(),
-          message: z.string(),
-          createdAt: z.union([z.string(), z.date()]).nullable(),
+          ok: z.literal(true),
         }),
         400: errorSchemas.validation,
+        403: errorSchemas.validation,
         500: errorSchemas.internal,
       },
-    }
-  }
+    },
+  },
 };
 
-export function buildUrl(path: string, params?: Record<string, string | number>): string {
+export function buildUrl(
+  path: string,
+  params?: Record<string, string | number>,
+): string {
   let url = path;
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
@@ -46,4 +45,6 @@ export function buildUrl(path: string, params?: Record<string, string | number>)
 }
 
 export type ContactInput = z.infer<typeof api.contact.create.input>;
-export type ContactResponse = z.infer<typeof api.contact.create.responses[201]>;
+export type ContactResponse = z.infer<
+  typeof api.contact.create.responses[201]
+>;
