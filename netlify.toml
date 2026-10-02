@@ -3,6 +3,10 @@
   publish = "dist/public"
   functions = "netlify/functions"
 
+# CONTACT_EMAIL in shared/site.ts is intentionally public and matches EMAIL_USER.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "EMAIL_USER"
+
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["nodemailer"]
