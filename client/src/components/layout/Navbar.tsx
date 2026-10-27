@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { NAV_LINKS } from "@shared/navigation";
+import { isNavLinkActive, NAV_LINKS } from "@shared/navigation";
 import logoFull from "@assets/ODS_brand-OhhDenny-Services-LLC_1773274389677.jpg";
 import logoBadge from "@assets/cropped-OSD_site_badge_1773274389676.jpg";
 
@@ -70,13 +70,13 @@ export function Navbar() {
                 data-testid={`nav-${link.label.toLowerCase()}`}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-primary relative py-2",
-                  location === link.href
+                  isNavLinkActive(location, link.href)
                     ? "text-primary"
                     : "text-muted-foreground",
                 )}
               >
                 {link.label}
-                {location === link.href && (
+                {isNavLinkActive(location, link.href) && (
                   <span
                     className="absolute bottom-0 left-0 w-full h-0.5
                       bg-primary rounded-full animate-fade-in"
@@ -133,7 +133,7 @@ export function Navbar() {
                 onClick={closeMobileMenu}
                 className={cn(
                   "px-4 py-3 text-base font-medium rounded-md transition-colors",
-                  location === link.href
+                  isNavLinkActive(location, link.href)
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-muted",
                 )}

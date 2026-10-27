@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react";
+import { Link } from "wouter";
 import {
   BookOpen,
   Bot,
@@ -479,6 +480,15 @@ export default function Ai101() {
         />
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
           <HeroSparkle />
+          <p className="mb-4">
+            <Link
+              href="/101s"
+              className="text-sm font-semibold text-primary hover:underline"
+              data-testid="link-back-101s"
+            >
+              101s
+            </Link>
+          </p>
           <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-4">
             Friendly tech explainer
           </p>
